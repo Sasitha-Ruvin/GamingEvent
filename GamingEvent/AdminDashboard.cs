@@ -58,5 +58,10 @@ namespace GamingEvent
             this.Hide();
             manageParticipants.Show();
         }
+
+        private void closeBtn_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

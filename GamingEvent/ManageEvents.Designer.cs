@@ -45,6 +45,7 @@
             this.dataGridViewEvents.Name = "dataGridViewEvents";
             this.dataGridViewEvents.Size = new System.Drawing.Size(776, 290);
             this.dataGridViewEvents.TabIndex = 0;
+            this.dataGridViewEvents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEvents_CellClick);
             this.dataGridViewEvents.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEvents_CellContentDoubleClick);
             // 
             // addEvent
@@ -127,6 +128,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "Remove";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ManageEvents
             // 

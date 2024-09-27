@@ -15,10 +15,12 @@ namespace GamingEvent
     public partial class AddEvents : Form
     {
         DataAddHelper addHelper;
+        DataBaseHelper dataBaseHelper;
         public AddEvents()
         {
             InitializeComponent();
             addHelper = new DataAddHelper();
+            dataBaseHelper = new DataBaseHelper();
             InitateDateTime();
         }
 
@@ -51,10 +53,21 @@ namespace GamingEvent
             string location = textBoxLocation.Text;
             string description = descBox.Text;
             DateTime date = dateTimePicker1.Value;
-            
-            if(ID == "" || name =="" || description =="" || location == "")
+            string ticketPriceText = textBoxTicketPrice.Text;
+
+            if (ID == "" || name =="" || description =="" || location == "")
             {
                 MessageBox.Show("Please Fill all the Fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else if (dataBaseHelper.CheckEvent(ID))
+            {
+                MessageBox.Show("ID Exists Already. Please Enter Different ID", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            else if (!decimal.TryParse(ticketPriceText, out decimal ticketPrice))
+            {
+                MessageBox.Show("Please enter a valid ticket price.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
             else if(eventImage == null)
@@ -78,7 +91,8 @@ namespace GamingEvent
 
             if (ValidateInputs())
             {
-                bool success = addHelper.AddEvent(ID, name, location, date, description, eventImage);
+                decimal ticketPrice = decimal.Parse(textBoxTicketPrice.Text);
+                bool success = addHelper.AddEvent(ID, name, location, date, description, eventImage, ticketPrice);
                 if(success)
                 {
                     MessageBox.Show("Event added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -92,6 +106,18 @@ namespace GamingEvent
                 }
             }
 
+        }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            ManageEvents manageEvents = new ManageEvents();
+            manageEvents.Show();
+            this.Close();
+        }
+
+        private void closeBtn_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

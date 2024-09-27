@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GamingEvent.DatabaseHelpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,12 +15,14 @@ namespace GamingEvent
     public partial class EventDetailForm : Form
     {
         private DataBaseHelper dbHelper;
+        private DataAddHelper addHelper;
         private string eventID;
         private byte[] eventImage;
         public EventDetailForm(string selectedEventID)
         {
 
             dbHelper = new DataBaseHelper();
+            addHelper = new DataAddHelper();
             eventID = selectedEventID;
             InitializeComponent();
             LoadDetails();
@@ -76,7 +79,8 @@ namespace GamingEvent
 
             if (ValidateInputs())
             {
-                bool success = dbHelper.UpdateEvent(eventID, name, location, date, description, eventImage);
+                decimal ticketPrice = decimal.Parse(textBoxTicketPrice.Text);
+                bool success = addHelper.UpdateEvent(eventID, name, location, date, description, eventImage, ticketPrice);
                 if (success)
                 {
                     MessageBox.Show("Event updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -95,6 +99,8 @@ namespace GamingEvent
 
         private bool ValidateInputs()
         {
+            string ticketPriceText = textBoxTicketPrice.Text;
+
             if (textBoxName.Text == "" || textBoxLocation.Text == "" || descBox.Text == "")
             {
                 MessageBox.Show("Please fill all the fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -103,6 +109,11 @@ namespace GamingEvent
             else if (eventImage == null)
             {
                 MessageBox.Show("Please upload an event image.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            else if (!decimal.TryParse(ticketPriceText, out decimal ticketPrice))
+            {
+                MessageBox.Show("Please enter a valid ticket price.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
             else
@@ -123,6 +134,18 @@ namespace GamingEvent
                     eventImage = File.ReadAllBytes(openFileDialog.FileName);
                 }
             }
+        }
+
+        private void closeBtn_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            ManageEvents manageEvents = new ManageEvents();
+            manageEvents.Show();
+            this.Close();
         }
     }
 }

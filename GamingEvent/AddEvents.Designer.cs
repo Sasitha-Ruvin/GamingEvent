@@ -43,6 +43,10 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.uploadIMG = new System.Windows.Forms.Button();
             this.addEventBtn = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxTicketPrice = new System.Windows.Forms.TextBox();
+            this.closeBtn = new System.Windows.Forms.Button();
+            this.backBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,7 +87,7 @@
             // descBox
             // 
             this.descBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descBox.Location = new System.Drawing.Point(507, 288);
+            this.descBox.Location = new System.Drawing.Point(512, 319);
             this.descBox.Multiline = true;
             this.descBox.Name = "descBox";
             this.descBox.Size = new System.Drawing.Size(240, 172);
@@ -92,7 +96,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(507, 176);
+            this.dateTimePicker1.Location = new System.Drawing.Point(507, 171);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(259, 31);
             this.dateTimePicker1.TabIndex = 5;
@@ -141,7 +145,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(503, 252);
+            this.label6.Location = new System.Drawing.Point(508, 283);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(115, 22);
             this.label6.TabIndex = 10;
@@ -184,7 +188,7 @@
             this.addEventBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addEventBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addEventBtn.ForeColor = System.Drawing.Color.Navy;
-            this.addEventBtn.Location = new System.Drawing.Point(320, 490);
+            this.addEventBtn.Location = new System.Drawing.Point(320, 508);
             this.addEventBtn.Name = "addEventBtn";
             this.addEventBtn.Size = new System.Drawing.Size(170, 39);
             this.addEventBtn.TabIndex = 14;
@@ -192,13 +196,66 @@
             this.addEventBtn.UseVisualStyleBackColor = false;
             this.addEventBtn.Click += new System.EventHandler(this.addEventBtn_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(506, 212);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(120, 22);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Ticket Price";
+            // 
+            // textBoxTicketPrice
+            // 
+            this.textBoxTicketPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTicketPrice.Location = new System.Drawing.Point(510, 242);
+            this.textBoxTicketPrice.Name = "textBoxTicketPrice";
+            this.textBoxTicketPrice.Size = new System.Drawing.Size(259, 31);
+            this.textBoxTicketPrice.TabIndex = 15;
+            // 
+            // closeBtn
+            // 
+            this.closeBtn.BackColor = System.Drawing.Color.Red;
+            this.closeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.closeBtn.FlatAppearance.BorderSize = 0;
+            this.closeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closeBtn.ForeColor = System.Drawing.Color.White;
+            this.closeBtn.Location = new System.Drawing.Point(795, 4);
+            this.closeBtn.Name = "closeBtn";
+            this.closeBtn.Size = new System.Drawing.Size(47, 36);
+            this.closeBtn.TabIndex = 18;
+            this.closeBtn.Text = "X";
+            this.closeBtn.UseVisualStyleBackColor = false;
+            this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
+            // 
+            // backBtn
+            // 
+            this.backBtn.BackColor = System.Drawing.Color.White;
+            this.backBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.backBtn.FlatAppearance.BorderSize = 0;
+            this.backBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backBtn.Location = new System.Drawing.Point(3, 0);
+            this.backBtn.Name = "backBtn";
+            this.backBtn.Size = new System.Drawing.Size(47, 36);
+            this.backBtn.TabIndex = 17;
+            this.backBtn.Text = "<";
+            this.backBtn.UseVisualStyleBackColor = false;
+            this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
+            // 
             // AddEvents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::GamingEvent.Properties.Resources.Admin;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(844, 541);
+            this.ClientSize = new System.Drawing.Size(844, 559);
+            this.Controls.Add(this.closeBtn);
+            this.Controls.Add(this.backBtn);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBoxTicketPrice);
             this.Controls.Add(this.addEventBtn);
             this.Controls.Add(this.uploadIMG);
             this.Controls.Add(this.pictureBox1);
@@ -241,5 +298,9 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button uploadIMG;
         private System.Windows.Forms.Button addEventBtn;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxTicketPrice;
+        private System.Windows.Forms.Button closeBtn;
+        private System.Windows.Forms.Button backBtn;
     }
 }

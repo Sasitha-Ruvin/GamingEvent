@@ -14,11 +14,13 @@ namespace GamingEvent
     {
         public List<Participant> Participants;
         public List<Event> Event;
-        public List<Bookings> Bookings;
+        public List<BookedEvent> Bookings;
 
         public DataBaseHelper()
         {
             Event = LoadEvents();
+            Participants = LoadParticipants();
+            Bookings = LoadBookings();
         }
 
         //Connection String
@@ -45,9 +47,10 @@ namespace GamingEvent
                         DateTime eventDate = Convert.ToDateTime(reader["EventDate"]);
                         string location = reader["Location"].ToString();
                         byte[] image = reader["Image"] != DBNull.Value ? (byte[])reader["Image"] : null;
+                        decimal ticketPrice = reader["TicketPrice"] != DBNull.Value ? Convert.ToDecimal(reader["TicketPrice"]) : 0;
 
                         // Create the Event object
-                        Event evt = new Event(eventID, eventName, description, eventDate, location, image);
+                        Event evt = new Event(eventID, eventName, description, eventDate, location, image, ticketPrice);
 
                         // Add to the list
                         events.Add(evt);
@@ -61,6 +64,87 @@ namespace GamingEvent
 
             return events;
         }
+
+        public List<BookedEvent> LoadBookings()
+        {
+            List<BookedEvent> bookings = new List<BookedEvent>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM Bookings";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Read each field and store them in the BookedEvent object
+                        int bookingID = Convert.ToInt32(reader["BookingID"]);
+                        string eventID = reader["EventID"].ToString();
+                        string participantID = reader["ParticipantID"].ToString();
+                        int noOfParticipants = Convert.ToInt32(reader["Participants"]);
+                        decimal total = Convert.ToDecimal(reader["Total"]);
+
+                        // Create the BookedEvent object
+                        BookedEvent bookedEvent = new BookedEvent(eventID, participantID, noOfParticipants, total)
+                        {
+                            Id = bookingID 
+                        };
+
+                        // Add to the list
+                        bookings.Add(bookedEvent);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to connect to server: " + ex.Message, "Connection Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return bookings;
+        }
+
+
+        public List<Participant> LoadParticipants()
+        {
+            List<Participant> participants = new List<Participant>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM Participants";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Read each field and store them in the Participant object
+                        string participantID = reader["ParticipantID"].ToString();
+                        string username = reader["Username"].ToString();
+                        string password = reader["Password"].ToString();
+                        string name = reader["Name"].ToString();
+                        string address = reader["Address"].ToString();
+                        string email = reader["Email"].ToString();
+                        int contact = reader["Contact"] != DBNull.Value ? Convert.ToInt32(reader["Contact"]) : 0;
+
+                        // Create the Participant object
+                        Participant participant = new Participant(participantID, name, username, password, address, email, contact);
+
+                        // Add to the list
+                        participants.Add(participant);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to connect to server: " + ex.Message, "Connection Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return participants;
+        }
+
 
         //Getting Customer Count
         public int GetCustomerCount()
@@ -123,7 +207,7 @@ namespace GamingEvent
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT EventID, EventName, Description, EventDate, Location FROM Event";
+                    string query = "SELECT EventID, EventName, Description, EventDate, Location, TicketPrice FROM Event";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         SqlDataReader reader = command.ExecuteReader();
@@ -245,6 +329,52 @@ namespace GamingEvent
                 MessageBox.Show("Failed to update event: " + ex.Message, "Update Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+        }
+
+        //Checking Event ID Existance
+
+        public bool CheckEvent(string eventID)
+        {
+            return Event.Any(e=>e.EventID == eventID);
+        }
+
+        public bool CheckUser(string userID)
+        {
+            return Participants.Any(u=>u.ParticipantID == userID);  
+        }
+
+        public List<BookedEvent> GetBookings(string userID)
+        {
+            return Bookings.Where(b=>b.ParticipantID == userID).ToList();
+        }
+
+        //Getting Event Cost
+        public decimal GetTicketPrice(string eventID)
+        {
+            decimal price = 0;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT TicketPrice FROM Event WHERE EventID = @EventID";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@EventID", eventID);
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            price = reader.GetDecimal(reader.GetOrdinal("TicketPrice"));
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to retrieve vehicle cost: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return price;
         }
 
     }

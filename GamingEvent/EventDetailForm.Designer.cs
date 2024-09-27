@@ -44,6 +44,10 @@
             this.textBoxID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxTicketPrice = new System.Windows.Forms.TextBox();
+            this.closeBtn = new System.Windows.Forms.Button();
+            this.backBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,7 +100,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(519, 258);
+            this.label6.Location = new System.Drawing.Point(519, 286);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(115, 22);
             this.label6.TabIndex = 25;
@@ -153,7 +157,7 @@
             // descBox
             // 
             this.descBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descBox.Location = new System.Drawing.Point(523, 294);
+            this.descBox.Location = new System.Drawing.Point(523, 322);
             this.descBox.Multiline = true;
             this.descBox.Name = "descBox";
             this.descBox.Size = new System.Drawing.Size(240, 172);
@@ -209,6 +213,55 @@
             this.saveButton.UseVisualStyleBackColor = false;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(519, 218);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(120, 22);
+            this.label8.TabIndex = 32;
+            this.label8.Text = "Ticket Price";
+            // 
+            // textBoxTicketPrice
+            // 
+            this.textBoxTicketPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTicketPrice.Location = new System.Drawing.Point(523, 248);
+            this.textBoxTicketPrice.Name = "textBoxTicketPrice";
+            this.textBoxTicketPrice.Size = new System.Drawing.Size(259, 31);
+            this.textBoxTicketPrice.TabIndex = 31;
+            // 
+            // closeBtn
+            // 
+            this.closeBtn.BackColor = System.Drawing.Color.Red;
+            this.closeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.closeBtn.FlatAppearance.BorderSize = 0;
+            this.closeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closeBtn.ForeColor = System.Drawing.Color.White;
+            this.closeBtn.Location = new System.Drawing.Point(796, 4);
+            this.closeBtn.Name = "closeBtn";
+            this.closeBtn.Size = new System.Drawing.Size(47, 36);
+            this.closeBtn.TabIndex = 34;
+            this.closeBtn.Text = "X";
+            this.closeBtn.UseVisualStyleBackColor = false;
+            this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
+            // 
+            // backBtn
+            // 
+            this.backBtn.BackColor = System.Drawing.Color.White;
+            this.backBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.backBtn.FlatAppearance.BorderSize = 0;
+            this.backBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backBtn.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backBtn.Location = new System.Drawing.Point(12, 4);
+            this.backBtn.Name = "backBtn";
+            this.backBtn.Size = new System.Drawing.Size(47, 36);
+            this.backBtn.TabIndex = 33;
+            this.backBtn.Text = "<";
+            this.backBtn.UseVisualStyleBackColor = false;
+            this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
+            // 
             // EventDetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -216,6 +269,10 @@
             this.BackgroundImage = global::GamingEvent.Properties.Resources.Admin;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(844, 541);
+            this.Controls.Add(this.closeBtn);
+            this.Controls.Add(this.backBtn);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBoxTicketPrice);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.uploadIMG);
@@ -260,5 +317,9 @@
         private System.Windows.Forms.TextBox textBoxID;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxTicketPrice;
+        private System.Windows.Forms.Button closeBtn;
+        private System.Windows.Forms.Button backBtn;
     }
 }

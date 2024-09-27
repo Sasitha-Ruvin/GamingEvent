@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GamingEvent.DatabaseHelpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,10 +14,12 @@ namespace GamingEvent
     public partial class ManageEvents : Form
     {
         DataBaseHelper dbHelper;
+        DataRemove dataRemove;
         public ManageEvents()
         {
             InitializeComponent();
             dbHelper = new DataBaseHelper();
+            dataRemove = new DataRemove();
             LoadTables();
         }
 
@@ -64,6 +67,40 @@ namespace GamingEvent
                 eventDetail.Show(); 
                 LoadTables();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string removeId = removeText.Text;
+
+            if (removeId == "")
+            {
+                MessageBox.Show("Enter an ID to Remove. Please Try Again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (!dbHelper.CheckEvent(removeId))
+            {
+                MessageBox.Show("Invalid ID. Please Try Again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                bool isRemoved = dataRemove.RemoveEventFromDB(removeId);
+                if (isRemoved)
+                {
+                    MessageBox.Show("Event Removed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dataGridViewEvents.DataSource = null;
+                    dataGridViewEvents.DataSource = dbHelper.LoadEventsToTable();
+                    dataGridViewEvents.Refresh();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to Remove Event", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void dataGridViewEvents_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

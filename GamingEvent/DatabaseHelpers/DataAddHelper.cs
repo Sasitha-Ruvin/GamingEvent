@@ -56,15 +56,15 @@ namespace GamingEvent.DatabaseHelpers
             }
         }
 
-        public bool AddEvent(string ID, string Name, string location, DateTime date, string description, byte[] image)
+        public bool AddEvent(string ID, string Name, string location, DateTime date, string description, byte[] image, decimal ticket)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "INSERT INTO Event(EventID, EventName, Description, EventDate, Location, Image)" +
-                        "VALUES (@ID, @Name, @Desc, @Date, @Location, @Image)";
+                    string query = "INSERT INTO Event(EventID, EventName, Description, EventDate, Location, Image, TicketPrice)" +
+                        "VALUES (@ID, @Name, @Desc, @Date, @Location, @Image, @Ticket)";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@ID", ID);
@@ -73,6 +73,7 @@ namespace GamingEvent.DatabaseHelpers
                         command.Parameters.AddWithValue("@Location", location);
                         command.Parameters.AddWithValue("@Date", date);
                         command.Parameters.AddWithValue("@Image", image);
+                        command.Parameters.AddWithValue("@Ticket", ticket);
 
                         int rowsAffected = command.ExecuteNonQuery();
                         return rowsAffected > 0;
@@ -88,14 +89,14 @@ namespace GamingEvent.DatabaseHelpers
         }
 
         // Method to update event details in the database
-        public bool UpdateEvent(string eventID, string eventName, string location, DateTime eventDate, string description, byte[] eventImage)
+        public bool UpdateEvent(string eventID, string eventName, string location, DateTime eventDate, string description, byte[] eventImage, decimal ticket)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "UPDATE Event SET EventName = @EventName, Location = @Location, EventDate = @EventDate, Description = @Description, Image = @Image WHERE EventID = @EventID";
+                    string query = "UPDATE Event SET EventName = @EventName, Location = @Location, EventDate = @EventDate, Description = @Description, Image = @Image, TicketPrice = @Ticket WHERE EventID = @EventID";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@EventID", eventID);
@@ -104,6 +105,7 @@ namespace GamingEvent.DatabaseHelpers
                         command.Parameters.AddWithValue("@EventDate", eventDate);
                         command.Parameters.AddWithValue("@Description", description);
                         command.Parameters.AddWithValue("@Image", eventImage);
+                        command.Parameters.AddWithValue("@Ticket", ticket);
 
                         int rowsAffected = command.ExecuteNonQuery();
                         return rowsAffected > 0;
@@ -115,8 +117,36 @@ namespace GamingEvent.DatabaseHelpers
                 MessageBox.Show("Failed to update event: " + ex.Message, "Update Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-
-
         }
+
+        public bool AddBookedEventToDatabase(BookedEvent bookedEvent)
+        {
+            string query = "INSERT INTO Bookings (EventID, ParticipantID, Participants, Total)" +
+                           "VALUES (@EventID, @ParticipantID, @NoOfParticipants, @Total)";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        // Set the parameters from the BookedEvent object
+                        command.Parameters.AddWithValue("@EventID", bookedEvent.EventID); // Assuming EventID is an Event object
+                        command.Parameters.AddWithValue("@ParticipantID", bookedEvent.ParticipantID);
+                        command.Parameters.AddWithValue("@NoOfParticipants", bookedEvent.NoOfParticipants);
+                        command.Parameters.AddWithValue("@Total", bookedEvent.Total);
+
+                        int result = command.ExecuteNonQuery();
+                        return result > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
     }
 }

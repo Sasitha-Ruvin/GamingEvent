@@ -61,10 +61,16 @@
       <DependentUpon>AdminDashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="BookedEvent.cs" />
-    <Compile Include="Bookings.cs" />
     <Compile Include="DataBaseHelper.cs" />
     <Compile Include="DatabaseHelpers\DataAddHelper.cs" />
+    <Compile Include="DatabaseHelpers\DataRemove.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="EventBooking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventBooking.Designer.cs">
+      <DependentUpon>EventBooking.cs</DependentUpon>
+    </Compile>
     <Compile Include="EventDetailForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,11 +106,11 @@
     <Compile Include="SignUp.Designer.cs">
       <DependentUpon>SignUp.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl1.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="UserBookings.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <Compile Include="UserBookings.Designer.cs">
+      <DependentUpon>UserBookings.cs</DependentUpon>
     </Compile>
     <Compile Include="UserDashboard.cs">
       <SubType>Form</SubType>
@@ -124,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AdminDashboard.resx">
       <DependentUpon>AdminDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventBooking.resx">
+      <DependentUpon>EventBooking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EventDetailForm.resx">
       <DependentUpon>EventDetailForm.cs</DependentUpon>
@@ -150,8 +159,11 @@
     <EmbeddedResource Include="SignUp.resx">
       <DependentUpon>SignUp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl1.resx">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <EmbeddedResource Include="UserBookings.resx">
+      <DependentUpon>UserBookings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDashboard.resx">
+      <DependentUpon>UserDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewBookings.resx">
       <DependentUpon>ViewBookings.cs</DependentUpon>
@@ -183,6 +195,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\events2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\booking.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

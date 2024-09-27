@@ -15,7 +15,9 @@ namespace GamingEvent
         public string Location { get; set; }
         public byte[] Image { get; set; } // Storing image as byte array
 
-        public Event(string eventID, string eventName, string description, DateTime eventDate, string location, byte[] image)
+        public decimal TicketPrice { get; set; }
+
+        public Event(string eventID, string eventName, string description, DateTime eventDate, string location, byte[] image, decimal ticketPrice)
         {
             EventID = eventID;
             EventName = eventName;
@@ -23,6 +25,7 @@ namespace GamingEvent
             EventDate = eventDate;
             Location = location;
             Image = image;
+            TicketPrice = ticketPrice;
         }
     }
 }

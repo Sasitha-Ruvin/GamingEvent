@@ -21,7 +21,7 @@ namespace GamingEvent
 
         private void closeBtn_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void backBtn_Click(object sender, EventArgs e)

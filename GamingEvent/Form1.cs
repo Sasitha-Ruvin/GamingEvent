@@ -72,7 +72,7 @@ namespace GamingEvent
                     bool isValid = validations.ParticipantLogin(username, password);
                     if (isValid)
                     {
-                        UserDashboard userDashboard = new UserDashboard();
+                        UserDashboard userDashboard = new UserDashboard(username);
                         userDashboard.Show();
                         this.Hide();
                       

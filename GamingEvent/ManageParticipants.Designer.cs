@@ -51,6 +51,7 @@
             this.button1.TabIndex = 14;
             this.button1.Text = "Remove";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // removeText
             // 
@@ -111,6 +112,7 @@
             this.dataGridViewPart.Name = "dataGridViewPart";
             this.dataGridViewPart.Size = new System.Drawing.Size(776, 290);
             this.dataGridViewPart.TabIndex = 8;
+            this.dataGridViewPart.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPart_CellClick);
             // 
             // ManageParticipants
             // 
